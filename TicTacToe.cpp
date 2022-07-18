@@ -203,7 +203,10 @@ void logic()
 		notPriority();
 	}
 	moveMade = false;
-	player = 1;
+	if ((cell[0] > 0) && (cell[1] > 0) && (cell[2] > 0) && (cell[3] > 0) && (cell[4] > 0) && (cell[5] > 0) && (cell[6] > 0) && (cell[7] > 0) && (cell[8] > 0) && (gameOver == 0))
+	{
+		player = 1; gameOver = 3;
+	} else player = 1;
 }
 
 int main()
@@ -215,6 +218,7 @@ int main()
 		rezCheck();
 		graphics();
 		controls();
+		Sleep(10);
 		system("cls");
 	}
 	system("cls");
