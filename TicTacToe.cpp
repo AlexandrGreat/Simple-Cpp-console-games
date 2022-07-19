@@ -174,7 +174,7 @@ void setup()
 
 void controls(int s)
 {
-	int p1, p2;
+	int p1;
 	p1 = s;
 	if (_kbhit())
 	{
@@ -412,7 +412,7 @@ void priority(int s)
 
 void notPriority(int s)
 {
-	int p1, p2;
+	int p2;
 	if (s == 1) p2 = 2;
 	if (s == 2) p2 = 1;
 	int randomCell = rand() % 9;
@@ -421,7 +421,6 @@ void notPriority(int s)
 
 void logic()
 {
-	int randomCell;
 	if ((player == 2) && (gameOver == 0))
 	{
 		priority(started);
