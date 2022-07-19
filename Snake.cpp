@@ -6,7 +6,7 @@ using namespace std;
 bool gameOver;
 const int  width = 26;
 const int height = 26;
-int headX, headY, foodX, foodY, score, timeLeft;
+int headX, headY, foodX, foodY, score, timeLeft, menuSelect=1;
 static int highscore = 0;
 int tailX[250], tailY[250];
 int tailLength;
@@ -23,6 +23,7 @@ void colorText(int k)
 	case(1):SetConsoleTextAttribute(handle, (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)); break;
 	case(2):SetConsoleTextAttribute(handle, (FOREGROUND_RED)); break;
 	case(3):SetConsoleTextAttribute(handle, (FOREGROUND_GREEN)); break;
+	case(5):SetConsoleTextAttribute(handle, 23); break;
 	}
 }
 
@@ -43,6 +44,12 @@ void launch()
 	colorText(1);
 	cout << "#" << endl;
 
+	cout << "#" << setw(27);
+	colorText(2);
+	cout << "by AlexandrGreat" << setw(12);
+	colorText(1);
+	cout << "#" << endl;
+
 	for (int j = 0; j < 4; j++)
 	{
 		for (int i = 0; i < 40; i++)
@@ -50,8 +57,13 @@ void launch()
 		cout << endl;
 	}
 
-	cout << "#" << setw(33);
-	cout << "Play with barriers (y/n)?" << setw(6) << "#" << endl;
+	cout << "#          ";
+	if (menuSelect == 1) colorText(5);
+	cout << "Play with barriers"; colorText(1); cout << "          #" << endl;
+
+	cout << "#         ";
+	if (menuSelect == 2) colorText(5);
+	cout << "Play without barriers"; colorText(1); cout << "        #" << endl;
 
 	for (int j = 0; j < 3; j++)
 	{
@@ -60,13 +72,21 @@ void launch()
 		cout << endl;
 	}
 	for (int i = 0; i < 40; i++) cout << "#";
+}
 
-	switch (_getch())
-	{
-		case 'y': barriers = true; started = true; break;
-		case 'n': barriers = false; started = true; break;
-	}
-	system("cls");
+void menuControls()
+{
+	if (_kbhit)
+		switch (_getch())
+		{
+			case'w':if (menuSelect != 1) menuSelect--; break;
+			case's':if (menuSelect != 2) menuSelect++; break;
+			case'e': if (menuSelect == 1)
+			{
+				barriers = true; started = true;
+			}
+			else { barriers = false; started = true; }  break;
+		}
 }
 
 void setup()
@@ -200,6 +220,9 @@ int main()
 	while (!started)
 	{
 		launch();
+		menuControls();
+		Sleep(10);
+		system("cls");
 	}
 	setup();
 	while (!gameOver)
@@ -271,6 +294,7 @@ int main()
 		timeLeft--;
 		system("cls");
 	}
+	menuSelect = 1;
 	started = false;
 	main();
 }
