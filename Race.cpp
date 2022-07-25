@@ -5,7 +5,8 @@
 using namespace std;
 bool gameOver;
 int wall[39];
-int playerX, playerY, timeLeft, started = 0, menuSelect=1, speed;
+int playerX, playerY, timeLeft, started = 0, menuSelect=1, speed, score;
+static int highscore=0;
 HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 void colorText(int k)
@@ -75,6 +76,13 @@ void launch()
 	cout << endl;
 }
 
+void setSpeed(int s)
+{
+	if (s == 1) speed = 200;
+	if (s == 2) speed = 100;
+	if (s == 3) speed = 50;
+}
+
 void menuControls()
 {
 	if (_kbhit)
@@ -82,16 +90,11 @@ void menuControls()
 		{
 		case'w':if (menuSelect != 1) menuSelect--; break;
 		case's':if (menuSelect != 4) menuSelect++; break;
-		case'e':started = 1; break;
+		case'e':if (menuSelect == 1) { setSpeed(1); started = 1; }
+			   if (menuSelect == 2) { setSpeed(2); started = 1; }
+			   if (menuSelect == 3) { setSpeed(3); started = 1; }
+			   if (menuSelect == 4) { started = 1; } break;
 		}
-}
-
-void setSpeed(int s)
-{
-	if (s == 1) speed = 2000;
-	if (s == 2) speed = 1000;
-	if (s == 3) speed = 500;
-	if (s == 4) { speed = 2000; Sleep(15000); speed = 1000; Sleep(15000); speed = 500;}
 }
 
 void setup()
@@ -101,6 +104,7 @@ void setup()
 	playerY = 18;
 	timeLeft = 5;
 	wall[38] = 0;
+	score = 0;
 }
 
 void wallDraw()
@@ -154,7 +158,24 @@ void graphics()
 	colorText(1);
 	for (int i = 0; i < 40; i++)
 		cout << "#";
-	cout << endl;
+	colorText(3);
+	cout << endl <<"Gamemode: ";
+	colorText(1);
+	switch (menuSelect)
+	{
+	case(1):cout << "Easy" << endl; break;
+	case(2):cout << "Medium" << endl; break;
+	case(3):cout << "Hard" << endl; break;
+	case(4):cout << "Increasing difficulty" << endl; break;
+	}
+	colorText(3);
+	cout << "Score: ";
+	colorText(1);
+	cout << score << endl;
+	colorText(3);
+	cout << "Highscore: ";
+	colorText(1);
+	cout << highscore << endl;
 }
 
 int main()
@@ -167,6 +188,7 @@ int main()
 		system("cls");
 	}
 	setup();
+	if (menuSelect == 4) speed = 200;
 	while (!gameOver)
 	{
 		wallDraw();
@@ -176,15 +198,73 @@ int main()
 				controls();
 				wall[38]++;
 				controls();
-				Sleep(100);
+				Sleep(speed);
 				controls();
 				system("cls");
 				if (wall[38] > 19) { wall[38] = 0; wallDraw(); }
+				if ((menuSelect == 4) && (speed > 0)) speed--;
+				score++;
+				if (highscore < score) highscore = score;
 			}
 	}
-	for (int i = 0; i < 5; i++)
+
+	int w1, w2;
+	if ((score > -1) && (score < 10)) w1 = 14;
+	if ((score > 9) && (score < 100)) w1 = 13;
+	if ((score > 99) && (score < 1000)) w1 = 12;
+
+	if ((highscore > -1) && (highscore < 10)) w2 = 15;
+	if ((highscore > 9) && (highscore < 100)) w2 = 14;
+	if ((highscore > 99) && (highscore < 1000)) w2 = 13;
+
+	for (int i = 0; i < 6; i++)
 	{
-		cout << "Game Over" << endl << "respawn in " << timeLeft;
+		colorText(1);
+		for (int i = 0; i < 40; i++) cout << "#";
+		cout << endl;
+		for (int j = 0; j < 4; j++)
+		{
+			for (int i = 0; i < 40; i++)
+				if ((i == 0) || (i == 39))cout << "#"; else cout << " ";
+			cout << endl;
+		}
+		cout << "#" << setw(22);
+		colorText(2);
+		cout << ("GAME OVER") << setw(17);
+		colorText(1);
+		cout << "#" << endl;
+
+		cout << "#" << setw(24) << "your score : ";
+		colorText(3);
+		cout << score << setw(w1);
+		colorText(1);
+		cout << "#" << endl;
+
+		cout << "#" << setw(23) << "Highscore : ";
+		colorText(3);
+		cout << highscore << setw(w2);
+		colorText(1);
+		cout << "#" << endl;
+
+		for (int j = 0; j < 3; j++)
+		{
+			for (int i = 0; i < 40; i++)
+				if ((i == 0) || (i == 39))cout << "#"; else cout << " ";
+			cout << endl;
+		}
+
+		cout << "#" << setw(30) << "Return to main menu in " << timeLeft << setw(8) << "#" << endl;
+
+		for (int j = 0; j < 3; j++)
+		{
+			for (int i = 0; i < 40; i++)
+				if ((i == 0) || (i == 39))cout << "#"; else cout << " ";
+			cout << endl;
+		}
+
+		for (int i = 0; i < 40; i++) cout << "#";
+		cout << endl;
+
 		timeLeft--;
 		Sleep(1000);
 		system("cls");
