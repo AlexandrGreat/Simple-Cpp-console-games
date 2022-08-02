@@ -16,8 +16,7 @@ void colorText(int k)
 	case(1):SetConsoleTextAttribute(handle, (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)); break;
 	case(2):SetConsoleTextAttribute(handle, (FOREGROUND_RED)); break;
 	case(3):SetConsoleTextAttribute(handle, (FOREGROUND_GREEN)); break;
-	case(4):SetConsoleTextAttribute(handle, 0); break;
-	case(5):SetConsoleTextAttribute(handle, 23); break;
+	case(4):SetConsoleTextAttribute(handle, 23); break;
 	}
 }
 
@@ -47,7 +46,7 @@ void controls()
 			if ((stage == 1) && (selected == 8)) x1 += to_string(7);
 			if ((stage == 1) && (selected == 9)) x1 += to_string(8);
 			if ((stage == 1) && (selected == 10)) x1 += to_string(9);
-			if ((stage == 1) && (selected == 13)) x1 += to_string(0);
+			if ((stage == 1) && (selected == 13) && (x1 != "")) x1 += to_string(0);
 
 			if ((stage < 3) && (selected == 3) && (x1 != "")) { act = 1; stage = 2; }
 			if ((stage < 3) && (selected == 7) && (x1 != "")) { act = 2; stage = 2; }
@@ -64,7 +63,7 @@ void controls()
 			if ((stage > 1) && (selected == 8)) { stage = 3; x2 += to_string(7); }
 			if ((stage > 1) && (selected == 9)) { stage = 3; x2 += to_string(8); }
 			if ((stage > 1) && (selected == 10)) { stage = 3; x2 += to_string(9); }
-			if ((stage > 1) && (selected == 13)) { stage = 3; x2 += to_string(0); }
+			if ((stage > 1) && (selected == 13) && (x2 != "")) { stage = 3; x2 += to_string(0); }
 
 			if ((stage == 3) && (selected == 16))
 			{
@@ -101,23 +100,23 @@ void cellCheck(int c)
 	if ((c == 15) && (selected != 15)) { colorText(2); cout << "/"; colorText(1); }
 	if ((c == 16) && (selected != 16)) { colorText(1); cout << "="; }
 	//selected
-	if ((c == 0) && (selected == 0)) { colorText(5); cout << "1"; colorText(1); }
-	if ((c == 1) && (selected == 1)) { colorText(5); cout << "2"; colorText(1); }
-	if ((c == 2) && (selected == 2)) { colorText(5); cout << "3"; colorText(1); }
-	if ((c == 3) && (selected == 3)) { colorText(5); cout << "+"; colorText(1); }
-	if ((c == 4) && (selected == 4)) { colorText(5); cout << "4"; colorText(1); }
-	if ((c == 5) && (selected == 5)) { colorText(5); cout << "5"; colorText(1); }
-	if ((c == 6) && (selected == 6)) { colorText(5); cout << "6"; colorText(1); }
-	if ((c == 7) && (selected == 7)) { colorText(5); cout << "-"; colorText(1); }
-	if ((c == 8) && (selected == 8)) { colorText(5); cout << "7"; colorText(1); }
-	if ((c == 9) && (selected == 9)) { colorText(5); cout << "8"; colorText(1); }
-	if ((c == 10) && (selected == 10)) { colorText(5); cout << "9"; colorText(1); }
-	if ((c == 11) && (selected == 11)) { colorText(5); cout << "X"; colorText(1); }
-	if ((c == 12) && (selected == 12)) { colorText(5); cout << "C"; colorText(1); }
-	if ((c == 13) && (selected == 13)) { colorText(5); cout << "0"; colorText(1); }
-	if ((c == 14) && (selected == 14)) { colorText(5); cout << "S"; colorText(1); }
-	if ((c == 15) && (selected == 15)) { colorText(5); cout << "/"; colorText(1); }
-	if ((c == 16) && (selected == 16)) { colorText(5); cout << "="; colorText(1); }
+	if ((c == 0) && (selected == 0)) { colorText(4); cout << "1"; colorText(1); }
+	if ((c == 1) && (selected == 1)) { colorText(4); cout << "2"; colorText(1); }
+	if ((c == 2) && (selected == 2)) { colorText(4); cout << "3"; colorText(1); }
+	if ((c == 3) && (selected == 3)) { colorText(4); cout << "+"; colorText(1); }
+	if ((c == 4) && (selected == 4)) { colorText(4); cout << "4"; colorText(1); }
+	if ((c == 5) && (selected == 5)) { colorText(4); cout << "5"; colorText(1); }
+	if ((c == 6) && (selected == 6)) { colorText(4); cout << "6"; colorText(1); }
+	if ((c == 7) && (selected == 7)) { colorText(4); cout << "-"; colorText(1); }
+	if ((c == 8) && (selected == 8)) { colorText(4); cout << "7"; colorText(1); }
+	if ((c == 9) && (selected == 9)) { colorText(4); cout << "8"; colorText(1); }
+	if ((c == 10) && (selected == 10)) { colorText(4); cout << "9"; colorText(1); }
+	if ((c == 11) && (selected == 11)) { colorText(4); cout << "X"; colorText(1); }
+	if ((c == 12) && (selected == 12)) { colorText(4); cout << "C"; colorText(1); }
+	if ((c == 13) && (selected == 13)) { colorText(4); cout << "0"; colorText(1); }
+	if ((c == 14) && (selected == 14)) { colorText(4); cout << "S"; colorText(1); }
+	if ((c == 15) && (selected == 15)) { colorText(4); cout << "/"; colorText(1); }
+	if ((c == 16) && (selected == 16)) { colorText(4); cout << "="; colorText(1); }
 }
 
 void line(int l)
