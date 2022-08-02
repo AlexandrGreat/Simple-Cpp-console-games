@@ -52,7 +52,7 @@ void menuControls()
 			if ((menuSelect == 5) && (numTog)) { num = 0; }
 			if ((menuSelect == 6) && (symTog)) { sym = 0; }
 
-			if ((menuSelect == 7) && (passLength != ""))
+			if ((menuSelect == 7) && (passLength != "")&&((up+low+num+sym)>0))
 			{
 				srand(time(NULL));
 				password = "";
